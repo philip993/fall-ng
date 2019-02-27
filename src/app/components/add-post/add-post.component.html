@@ -1,4 +1,4 @@
-<form action="#" method="post">
+<form action="#" (submit)="onAddPost(postForm)" #postForm="ngForm">
   <div class="container">
     <h3>Add Form</h3>
     <mat-form-field>
@@ -7,6 +7,8 @@
         id="title"
         name="title"
         matInput
+        ngModel
+        #title="ngModel"
         placeholder="Title of post"
       />
     </mat-form-field>
@@ -16,8 +18,10 @@
         id="content"
         name="content"
         matInput
-        rows="4"
+        rows="2"
         cols="30"
+        ngModel
+        #content="ngModel"
         placeholder="Content"
       ></textarea>
     </mat-form-field>
