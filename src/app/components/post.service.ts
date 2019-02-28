@@ -14,7 +14,7 @@ export class PostService {
   //get posts
   getPosts() {
     this.http
-      .get<{ posts: Post[] }>("http://localhost:3000/posts/all")
+      .get<{ posts: Post[] }>("http://localhost:3000/posts")
       .subscribe(postData => {
         this.posts = postData.posts;
         this.postUpdate.next([...this.posts]);
@@ -26,6 +26,14 @@ export class PostService {
     return this.postUpdate.asObservable();
   }
 
+  deletePost(postId: string) {
+    this.http.delete("http://localhost:3000/posts/" + postId).subscribe(() => {
+      const updatePost = this.posts.filter(post => post._id !== postId);
+      this.posts = updatePost;
+      this.postUpdate.next([...this.posts]);
+    });
+  }
+
   //add posts
   addPost(title: string, content: string) {
     const post: Post = {
@@ -34,9 +42,11 @@ export class PostService {
       content: content
     };
     this.http
-      .post("http://localhost:3000/posts/add", post)
+      .post<{ postId: string }>("http://localhost:3000/posts", post)
       .subscribe(responseData => {
         console.log("Added");
+        const _id = responseData.postId;
+        post._id = _id;
         this.posts.push(post);
         this.postUpdate.next([...this.posts]);
       });
