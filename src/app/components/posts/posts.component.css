@@ -3,3 +3,7 @@
   margin: auto;
   width: 60%;
 }
+
+mat-paginator {
+  margin-top: 1rem;
+}

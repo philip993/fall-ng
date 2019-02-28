@@ -15,7 +15,8 @@ import {
   MatFormFieldModule,
   MatToolbarModule,
   MatButtonModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatPaginatorModule
 } from "@angular/material";
 
 @NgModule({
@@ -31,7 +32,8 @@ import {
     MatButtonModule,
     MatExpansionModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
