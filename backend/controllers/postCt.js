@@ -5,7 +5,13 @@ exports.getForm = async (req, res) => {
 };
 */
 exports.getPosts = (req, res) => {
-  Post.find({}).then(posts => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+  if (pageSize && currentPage) {
+    postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+  }
+  postQuery.find({}).then(posts => {
     res.status(200).json({
       posts: posts
     });
